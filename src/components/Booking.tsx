@@ -27,8 +27,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { api, Agendamento, AgendamentoPayload, ApiError, Servico } from "@/lib/api";
+import { api, Agendamento, AgendamentoPayload, ApiError } from "@/lib/api";
 import { authStorage } from "@/lib/auth-storage";
+import { SERVICOS_FIXOS } from "@/lib/servicos-fixos";
 
 const initialFormState = {
   nome: "",
@@ -38,37 +39,11 @@ const initialFormState = {
   idServico: "",
 };
 
-const fallbackServicos: Servico[] = [
-  {
-    id: 1,
-    nome: "Banho e Tosa",
-    descricao: "Servico referencia para demonstracao",
-    preco: 80,
-  },
-  {
-    id: 2,
-    nome: "Consulta Veterinaria",
-    descricao: "Servico referencia para demonstracao",
-    preco: 150,
-  },
-  {
-    id: 3,
-    nome: "Day Spa Pet",
-    descricao: "Servico referencia para demonstracao",
-    preco: 200,
-  },
-];
-
 const Booking = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState(initialFormState);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const token = authStorage.getToken();
-
-  const servicosQuery = useQuery({
-    queryKey: ["servicos"],
-    queryFn: api.listarServicos,
-  });
 
   const agendamentosQuery = useQuery({
     queryKey: ["agendamentos"],
@@ -143,13 +118,11 @@ const Booking = () => {
   };
 
   const agendamentos = agendamentosQuery.data ?? [];
-  const servicos = servicosQuery.data ?? [];
-  const selectableServicos = servicos.length > 0 ? servicos : fallbackServicos;
 
   const selectedServiceName = useMemo(() => {
-    const selected = selectableServicos.find((service) => String(service.id) === formData.idServico);
+    const selected = SERVICOS_FIXOS.find((service) => String(service.id) === formData.idServico);
     return selected?.nome ?? "";
-  }, [formData.idServico, selectableServicos]);
+  }, [formData.idServico]);
 
   const dialogSubtitle = !token
     ? "Faca login para visualizar seus agendamentos."
@@ -256,18 +229,13 @@ const Booking = () => {
                   <SelectValue placeholder="Selecione o servico" />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectableServicos.map((servico: Servico) => (
+                  {SERVICOS_FIXOS.map((servico) => (
                     <SelectItem key={servico.id} value={String(servico.id)}>
                       {servico.nome}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              {!servicosQuery.isLoading && servicos.length === 0 && (
-                <p className="text-xs text-muted-foreground">
-                  Nenhum servico cadastrado. Exibindo opcoes de referencia.
-                </p>
-              )}
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
