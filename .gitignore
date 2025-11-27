@@ -13,10 +13,10 @@ dist-ssr
 *.local
 
 # Database
-*.db
-*.db-journal
-backend/dev.db
-backend/dev.local-backup.db
+# *.db
+# *.db-journal
+# backend/dev.db
+# backend/dev.local-backup.db
 
 # Environment variables
 .env

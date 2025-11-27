@@ -6,9 +6,9 @@ class Servico {
     async create(body: Servicos) {
         const query = await prisma.servico.create({
             data: {
-                title: body.nome,
-                description: body.descricao,
-                price: body.preco
+                title: body.title,
+                description: body.description,
+                price: body.price
             }
         });
         return {
@@ -40,9 +40,9 @@ class Servico {
         const query = await prisma.servico.update({
             where: { id: id },
             data: {
-                title: body.nome,
-                description: body.descricao,
-                price: body.preco
+                title: body.title,
+                description: body.description,
+                price: body.price
             }
         });
         return {
