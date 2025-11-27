@@ -18,10 +18,14 @@ dist-ssr
 # backend/dev.db
 # backend/dev.local-backup.db
 
-# Environment variables
+# Environment
 .env
 .env.local
-.env.*.local
+backend/.env
+backend/.env.local
+
+# Scripts temporários
+backend/scripts/testServicos.ts
 
 # Editor directories and files
 .vscode/*

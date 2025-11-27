@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tsx --env-file=.env src/server.ts"
+    "dev": "npx tsx --env-file=.env src/server.ts",
+    "seed": "npx tsx scripts/seedServicos.ts",
+    "generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",

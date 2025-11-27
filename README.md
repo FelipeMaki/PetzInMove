@@ -21,11 +21,17 @@ Aplicacao full-stack que integra uma landing page React (Vite + Tailwind + ShadC
      DATABASE_URL=file:./dev.db
      SECRET=um_segredo_seguro
      ```
-3. Execute as migracoes do Prisma:
+3. Execute as migracoes do Prisma e gere o client:
    ```bash
    cd backend
    npx prisma migrate deploy
+   npx prisma generate
    ```
+4. Popule o banco com servicos padrao:
+   ```bash
+   npm run seed
+   ```
+   Isso criara 4 servicos: Banho e Tosa, Consulta Veterinaria, Cortar Unha e Day Spa Pet.
 
 ## Execucao
 
